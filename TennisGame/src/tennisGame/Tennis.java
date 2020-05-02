@@ -11,21 +11,29 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	final int WIDTH = 700;
 	final int HEIGTH = 500;
 	Thread thread;
-	
+	HumanPaddle p1;
+	Ball b1;
 	
 	public void init() {
 		this.resize(WIDTH, HEIGTH);
 		
 		this.addKeyListener(this);
+		p1 = new HumanPaddle(1);
+		b1 = new Ball();
+		
+		
 		
 		thread = new Thread(this);
 		thread.start();
+		
 		
 	}
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGTH);
+		p1.draw(g);
+		b1.draw(g);
 		
 	}
 		
@@ -43,6 +51,10 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	@Override
 	public void run() {
 		for(;;) {
+			
+			p1.move();
+			b1.move();
+			
 			
 			repaint();
 			
@@ -66,9 +78,9 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
-			
+			p1.setUpAccel(true);
 		}else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			
+			p1.setDownAccel(true);
 		}
 		
 	}
@@ -76,9 +88,9 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_UP) {
-			
+			p1.setUpAccel(false);
 		}else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			
+			p1.setDownAccel(false);
 		}
 		
 	}
