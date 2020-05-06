@@ -13,13 +13,28 @@ public class Ball {
 
 
 	public Ball() {
-		
-		this.xVel = -1;
-		this.yVel = 1;
 		this.x = 350;
 		this.y = 250;
+		
+		this.xVel = getRandomSpeed() * getRandomDirection();
+		this.yVel = getRandomSpeed() * getRandomDirection();
+		
 	}
 	
+	
+	
+	public double getRandomSpeed() {
+		return (Math.random() * 3 + 2);
+	}
+	
+	public int getRandomDirection() {
+		int rand = (int)(Math.random() * 2);
+		if(rand == 1) {
+			return 1;
+		}else {
+			return -1;
+		}
+	}
 	
 	
 	public void draw(Graphics g) {

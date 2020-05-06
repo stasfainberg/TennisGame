@@ -3,6 +3,7 @@ package tennisGame;
 import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,6 +16,8 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	AIPaddle p2;
 	Ball b1;
 	boolean gameStarted;
+	Graphics gfx;
+	Image img;
 	
 	public void init() {
 		
@@ -27,6 +30,9 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 		b1 = new Ball();
 		p2 = new AIPaddle(2, b1);
 		
+		img = createImage(WIDTH, HEIGHT);
+		gfx = img.getGraphics();
+		
 		thread = new Thread(this);
 		thread.start();
 
@@ -34,10 +40,10 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 	
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGTH);
 		
-		if(b1.getX() < -1 || b1.getX() > 710) {
+		if(b1.getX() < -10 || b1.getX() > 710) {
 			g.setColor(Color.red);
 			g.drawString("Game Over", 350, 250);
 		}else {
@@ -54,6 +60,7 @@ public class Tennis extends Applet implements Runnable, KeyListener{
 			
 		}
 		
+		g.drawImage(img, 0, 0, this);
 		
 	}
 	
